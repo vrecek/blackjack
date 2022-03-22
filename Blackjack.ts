@@ -5,6 +5,7 @@ export default class Blackjack {
    private player_score:number
    private player_hold:boolean
    private player_money:number
+   private bet_value:number
 
    /* ----------------------------------------------------------------------------- */
 
@@ -60,13 +61,14 @@ export default class Blackjack {
 
    /* ----------------------------------------------------------------------------- */
 
-   public constructor(card_images:Array<string>, starter_plr_money:number) {
+   public constructor(card_images:Array<string>, starter_plr_money:number, betVal:number) {
       this.player_score = 0
       this.enemy_score = 0
       this.enemy_hold = false
       this.card_images = card_images
       this.player_money = starter_plr_money
       this.player_hold = false
+      this.bet_value = betVal
    }
 
    public draw(player_and_enemy_fields:Array<HTMLElement | Element>, enemyHoldText?:HTMLElement | Element):Array<number> {
@@ -104,24 +106,33 @@ export default class Blackjack {
       return score
    }
 
-   public returnWinner():string {
+   public returnWinner(dontAddMoney?:boolean):string {
       if(
          ((this.player_score > 21 && this.enemy_score > 21) &&
          (this.player_score === this.enemy_score)) 
          ||
-         this.player_score === 21 && this.enemy_score === 21
+         (this.player_score === 21 && this.enemy_score === 21)
+         ||
+         ((this.player_score === this.enemy_score) &&
+         (this.player_hold && this.enemyHold))
       ) {
          return 'DRAW'
       }
 
       if(this.player_score > 21 || this.enemy_score > 21) {
-         return this.player_score > this.enemy_score ? 'enemy' : 'player'
+         const res = this.player_score > this.enemy_score ? 'enemy' : 'player'
+
+         dontAddMoney ? null : res === 'player' ? this.player_money += (this.bet_value) * 2 : this.player_money -= this.bet_value
+
+         return res
       }
 
       if(
          (this.player_score === 21 || this.enemy_score > 21) ||
          (this.enemy_hold && this.player_score > this.enemy_score)
       ) {
+         dontAddMoney ? null : this.player_money += (this.bet_value * 2)
+         
          return 'player'
       }
 
@@ -129,19 +140,22 @@ export default class Blackjack {
          (this.enemy_score === 21 || this.player_score > 21) ||
          (this.player_hold && this.enemy_score > this.player_score)
       ) {
+         dontAddMoney ? null : this.player_money -= this.bet_value
+
          return 'enemy'
       }
 
       return ''
    }
 
-   public hold(enemy_board:HTMLElement | Element, enemy_score:HTMLElement | Element) {
+   public hold(enemy_board:HTMLElement | Element, enemy_score:HTMLElement | Element, enemyHoldText?:HTMLElement | Element):void {
       this.player_hold = true
 
-      while(!this.returnWinner()) {
+      while(!this.returnWinner(true)) {
          const rand = Math.floor(Math.random() * this.card_images.length)
 
          if(this.enemyHold(rand)) {
+            enemyHoldText ? enemyHoldText.textContent = '(hold)': null
             break
          }
 
@@ -156,7 +170,7 @@ export default class Blackjack {
       }
    }
 
-   public restartGame(player_and_enemy_fields:Array<HTMLElement | Element>, scores_cont:Array<HTMLElement | Element>) {
+   public restartGame(player_and_enemy_fields:Array<HTMLElement | Element>, scores_cont:Array<HTMLElement | Element>):void {
       if(player_and_enemy_fields.length !== 2) throw new Error('Fields must be for a player and enemy')
 
       this.player_score = 0
@@ -171,4 +185,13 @@ export default class Blackjack {
       }
    }
 
+   public set setBetValue(value:number) {
+      if(this.player_money > value) {
+         this.bet_value = value
+      }
+   }
+
+   public get getMoney():number {
+      return this.player_money
+   }
 }

@@ -5,6 +5,7 @@ export default class Blackjack {
     player_score;
     player_hold;
     player_money;
+    bet_value;
     /* ----------------------------------------------------------------------------- */
     cardScore(num, arr, turn) {
         switch (num) {
@@ -53,13 +54,14 @@ export default class Blackjack {
         return false;
     }
     /* ----------------------------------------------------------------------------- */
-    constructor(card_images, starter_plr_money) {
+    constructor(card_images, starter_plr_money, betVal) {
         this.player_score = 0;
         this.enemy_score = 0;
         this.enemy_hold = false;
         this.card_images = card_images;
         this.player_money = starter_plr_money;
         this.player_hold = false;
+        this.bet_value = betVal;
     }
     draw(player_and_enemy_fields, enemyHoldText) {
         if (player_and_enemy_fields.length !== 2)
@@ -87,31 +89,39 @@ export default class Blackjack {
         this.enemy_score += (score[1] || 0);
         return score;
     }
-    returnWinner() {
+    returnWinner(dontAddMoney) {
         if (((this.player_score > 21 && this.enemy_score > 21) &&
             (this.player_score === this.enemy_score))
             ||
-                this.player_score === 21 && this.enemy_score === 21) {
+                (this.player_score === 21 && this.enemy_score === 21)
+            ||
+                ((this.player_score === this.enemy_score) &&
+                    (this.player_hold && this.enemyHold))) {
             return 'DRAW';
         }
         if (this.player_score > 21 || this.enemy_score > 21) {
-            return this.player_score > this.enemy_score ? 'enemy' : 'player';
+            const res = this.player_score > this.enemy_score ? 'enemy' : 'player';
+            dontAddMoney ? null : res === 'player' ? this.player_money += (this.bet_value) * 2 : this.player_money -= this.bet_value;
+            return res;
         }
         if ((this.player_score === 21 || this.enemy_score > 21) ||
             (this.enemy_hold && this.player_score > this.enemy_score)) {
+            dontAddMoney ? null : this.player_money += (this.bet_value * 2);
             return 'player';
         }
         if ((this.enemy_score === 21 || this.player_score > 21) ||
             (this.player_hold && this.enemy_score > this.player_score)) {
+            dontAddMoney ? null : this.player_money -= this.bet_value;
             return 'enemy';
         }
         return '';
     }
-    hold(enemy_board, enemy_score) {
+    hold(enemy_board, enemy_score, enemyHoldText) {
         this.player_hold = true;
-        while (!this.returnWinner()) {
+        while (!this.returnWinner(true)) {
             const rand = Math.floor(Math.random() * this.card_images.length);
             if (this.enemyHold(rand)) {
+                enemyHoldText ? enemyHoldText.textContent = '(hold)' : null;
                 break;
             }
             const score = this.cardScore(rand, [], 'enemy');
@@ -134,5 +144,13 @@ export default class Blackjack {
             for (let x of Array.from(player_and_enemy_fields[i].children))
                 x.remove();
         }
+    }
+    set setBetValue(value) {
+        if (this.player_money > value) {
+            this.bet_value = value;
+        }
+    }
+    get getMoney() {
+        return this.player_money;
     }
 }

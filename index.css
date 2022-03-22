@@ -9,11 +9,84 @@
 body {
   height: 100vh;
   font-family: 'Roboto', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
   background: url('./images/background.png');
   background-size: cover;
   color: white;
   user-select: none;
+  width: 100vw;
+}
+
+.html-wrap {
+  overflow-x: hidden;
+}
+
+/* ----------------------------------------------------------------------- */
+
+.bets {
+  position: absolute;
+  right:0;
+  top:50%;
+  transform: translate(0, -50%);
+  display: flex;
+  align-items: center;
+  transition: .3s;
+  width: 350px;
+  max-width: 100%;
+}
+
+.bets div.click-icon {
+  background: #303030;
+  border: 1px solid black;
+  border-radius: 50% 0 0 50%;
+  width: 10%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: royalblue;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.bets div.click-icon:hover {
+  background: #202020;
+}
+
+.bets-inner {
+  height: 300px;
+  width: 90%;
+  background: #303030;
+  border: 2px solid #606060;
+  border-radius: .2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.bets-inner div {
+  width: 50%;
+  padding:.5em 0;
+  text-align: center;
+  color:royalblue;
+  border:2px solid royalblue;
+  border-radius: 2em;
+  font-weight: 700;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.bets-inner div:hover {
+  background: #404040;
+  box-shadow: 0 0 2px cornflowerblue, 0 0 4px cornflowerblue;
+}
+
+.bets-inner div.active {
+  pointer-events: none;
+  background: rgb(66, 99, 160);
+  color: white;
 }
 
 /* ----------------------------------------------------------------------- */

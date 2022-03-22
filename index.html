@@ -12,52 +12,65 @@
    <title>Blackjack</title>
 </head>
 <body>
-   <h1><i class="fa fa-coins"></i> WELCOME TO <span>CASINO</span> <i class="fa fa-coins"></i></h1>
-   <h4><i class="fa fa-crown"></i> <span></span> <span>WINS</span> <i class="fa fa-crown"></i></h4>
+   <div class="html-wrap">
+
+      <h1><i class="fa fa-coins"></i> WELCOME TO <span>CASINO</span> <i class="fa fa-coins"></i></h1>
+      <h4><i class="fa fa-crown"></i> <span></span> <span>WINS</span> <i class="fa fa-crown"></i></h4>
    
-   <main>
-
-      <section class="main-cont player">
-         <h2>YOU <span></span></h2>
-         <section class="stats">
-            <h3>Money: <span>500</span></h3>
-            <h3>Score: <span class="score">0</span></h3>
-         </section>
-
-         <section class="cards">
-
-         </section>
-      </section>
-
-
-
-      <div class="line"></div>
-
-
-
-      <section class="main-cont enemy">
-         <h2>ENEMY <span></span></h2>
-         <section class="stats">
-            <h3>Money: <span>∞</span></h3>
-            <h3>Score: <span class="score">0</span></h3>
-         </section>
-
-         <section class="cards">
-
-         </section>
-      </section>
-
-   </main>
-
-   <section class="buttons">
-      <button class="draw-card">Draw a card</button>
-      <button class="hold-card">Hold cards</button>
-      <button class="restart">Restart game</button>
-
       <section class="bets">
-
+         <div class="click-icon">$</div>
+   
+         <section class="bets-inner">
+            <div class="active">5$</div>
+            <div>10$</div>
+            <div>20$</div>
+         </section>
       </section>
-   </section>
+      
+      <main>
+   
+         <section class="main-cont player">
+            <h2>YOU <span></span></h2>
+            <section class="stats">
+               <h3>Money: <span class="money">500</span></h3>
+               <h3>Score: <span class="score">0</span></h3>
+            </section>
+   
+            <section class="cards">
+   
+            </section>
+         </section>
+   
+   
+   
+         <div class="line"></div>
+   
+   
+   
+         <section class="main-cont enemy">
+            <h2>ENEMY <span></span></h2>
+            <section class="stats">
+               <h3>Money: <span>∞</span></h3>
+               <h3>Score: <span class="score">0</span></h3>
+            </section>
+   
+            <section class="cards">
+   
+            </section>
+         </section>
+   
+      </main>
+   
+      <section class="buttons">
+         <button class="draw-card">Draw a card</button>
+         <button class="hold-card">Hold cards</button>
+         <button class="restart">Restart game</button>
+   
+         <section class="bets">
+   
+         </section>
+      </section>
 
+   </div>
 </body>
 </html>

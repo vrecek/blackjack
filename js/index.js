@@ -20,11 +20,12 @@ const restart = document.querySelector('.restart');
 const win_cont = document.querySelector('h4');
 const ene_hold_cont = document.querySelector('.enemy h2 span');
 const plr_hold_cont = document.querySelector('.player h2 span');
+const moneyCont = document.querySelector('.money');
 /* player [0], enemy [1] */
 const scores_cont = Array.from(document.querySelectorAll('.score'));
 const fields = Array.from(document.querySelectorAll('.cards'));
 /* */
-const game = new Blackjack(card_images, 500);
+const game = new Blackjack(card_images, 500, 5);
 draw_card.addEventListener('click', () => {
     const turn_score = game.draw(fields, ene_hold_cont);
     for (let i = 0; i <= 1; i++) {
@@ -37,7 +38,7 @@ draw_card.addEventListener('click', () => {
 });
 hold_card.addEventListener('click', () => {
     plr_hold_cont.textContent = '(hold)';
-    game.hold(fields[1], scores_cont[1]);
+    game.hold(fields[1], scores_cont[1], ene_hold_cont);
     const result = game.returnWinner();
     end(result);
 });
@@ -53,6 +54,29 @@ restart.addEventListener('click', () => {
     plr_hold_cont.textContent = '';
     win_cont.children[2].textContent = 'WINS';
 });
+/* ---------- */
+const bets_menu = document.querySelector('.bets');
+let hidden = true;
+const [c1,] = Array.from(bets_menu.children);
+const width = bets_menu.clientWidth - c1.clientWidth;
+bets_menu.style.transform = `translate(${width}px ,-50%)`;
+bets_menu.addEventListener('click', () => {
+    bets_menu.style.transform = `translate(${hidden ? 0 : width}px, -50%)`;
+    hidden = !hidden;
+});
+const opts = Array.from(bets_menu.children[1].children);
+for (let x of opts) {
+    x.addEventListener('click', () => {
+        const val = parseInt(x.textContent.replace('$', ''));
+        for (let y of opts)
+            y.className = '';
+        if (game.getMoney > val) {
+            game.setBetValue = val;
+            x.className = 'active';
+        }
+    });
+}
+/* ---------- */
 const end = (winnerString) => {
     win_cont.children[1].textContent = winnerString;
     if (winnerString === 'DRAW') {
@@ -64,4 +88,5 @@ const end = (winnerString) => {
     hold_card.style.pointerEvents = 'none';
     hold_card.style.display = 'none';
     restart.style.display = 'inline';
+    moneyCont.textContent = game.getMoney.toString();
 };
