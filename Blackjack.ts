@@ -98,22 +98,24 @@ export default class Blackjack {
          x.appendChild(img)
       }
 
-      this.player_score += score[0]
-      this.enemy_score += score[1]
+      this.player_score += (score[0] || 0)
+      this.enemy_score += (score[1] || 0)
 
       return score
    }
 
    public returnWinner():string {
-      if(this.player_score > 21 || this.enemy_score > 21) {
-         return this.player_score > this.enemy_score ? 'enemy' : 'player'
-      }
-
       if(
-         (this.player_score === this.enemy_score && this.player_hold && this.enemy_hold) ||
+         ((this.player_score > 21 && this.enemy_score > 21) &&
+         (this.player_score === this.enemy_score)) 
+         ||
          this.player_score === 21 && this.enemy_score === 21
       ) {
          return 'DRAW'
+      }
+
+      if(this.player_score > 21 || this.enemy_score > 21) {
+         return this.player_score > this.enemy_score ? 'enemy' : 'player'
       }
 
       if(
@@ -149,13 +151,9 @@ export default class Blackjack {
          img.src = this.card_images[rand]
 
          enemy_board.appendChild(img)
-         this.enemy_score += score[0]
+         this.enemy_score += (score[0] || 0)
          enemy_score.textContent = (parseInt(enemy_score.textContent!) + score[0]).toString()
       }
-   }
-
-   public finish() {
-
    }
 
    public restartGame(player_and_enemy_fields:Array<HTMLElement | Element>, scores_cont:Array<HTMLElement | Element>) {

@@ -45,24 +45,23 @@ restart.addEventListener('click', () => {
     game.restartGame(fields, scores_cont);
     win_cont.style.display = 'none';
     draw_card.style.pointerEvents = 'all';
-    draw_card.style.visibility = 'visible';
+    draw_card.style.display = 'inline';
     hold_card.style.pointerEvents = 'all';
-    hold_card.style.visibility = 'visible';
+    hold_card.style.display = 'inline';
     restart.style.display = 'none';
     ene_hold_cont.textContent = '';
     plr_hold_cont.textContent = '';
-    win_cont.children[1].textContent = '';
-    win_cont.children[1].textContent = 'WINS';
+    win_cont.children[2].textContent = 'WINS';
 });
 const end = (winnerString) => {
     win_cont.children[1].textContent = winnerString;
     if (winnerString === 'DRAW') {
-        win_cont.children[1].textContent = '';
+        win_cont.children[2].textContent = '';
     }
     win_cont.style.display = 'block';
     draw_card.style.pointerEvents = 'none';
-    draw_card.style.visibility = 'hidden';
+    draw_card.style.display = 'none';
     hold_card.style.pointerEvents = 'none';
-    hold_card.style.visibility = 'hidden';
+    hold_card.style.display = 'none';
     restart.style.display = 'inline';
 };

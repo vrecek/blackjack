@@ -83,17 +83,19 @@ export default class Blackjack {
             this.cardScore(rand, score, turn);
             x.appendChild(img);
         }
-        this.player_score += score[0];
-        this.enemy_score += score[1];
+        this.player_score += (score[0] || 0);
+        this.enemy_score += (score[1] || 0);
         return score;
     }
     returnWinner() {
+        if (((this.player_score > 21 && this.enemy_score > 21) &&
+            (this.player_score === this.enemy_score))
+            ||
+                this.player_score === 21 && this.enemy_score === 21) {
+            return 'DRAW';
+        }
         if (this.player_score > 21 || this.enemy_score > 21) {
             return this.player_score > this.enemy_score ? 'enemy' : 'player';
-        }
-        if ((this.player_score === this.enemy_score && this.player_hold && this.enemy_hold) ||
-            this.player_score === 21 && this.enemy_score === 21) {
-            return 'DRAW';
         }
         if ((this.player_score === 21 || this.enemy_score > 21) ||
             (this.enemy_hold && this.player_score > this.enemy_score)) {
@@ -116,11 +118,9 @@ export default class Blackjack {
             const img = document.createElement('img');
             img.src = this.card_images[rand];
             enemy_board.appendChild(img);
-            this.enemy_score += score[0];
+            this.enemy_score += (score[0] || 0);
             enemy_score.textContent = (parseInt(enemy_score.textContent) + score[0]).toString();
         }
-    }
-    finish() {
     }
     restartGame(player_and_enemy_fields, scores_cont) {
         if (player_and_enemy_fields.length !== 2)

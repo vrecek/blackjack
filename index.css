@@ -13,6 +13,7 @@ body {
   background: url('./images/background.png');
   background-size: cover;
   color: white;
+  user-select: none;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -21,6 +22,7 @@ h1 {
   text-align: center;
   padding:.5em 0;
   font-weight: 700;
+  font-size: clamp(1rem, 3vw, 2rem);
 }
 
 h1 span {
@@ -37,7 +39,7 @@ h4 {
   background: #202020;
   padding:.5em;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: clamp(1rem, 4vw, 2rem);
   font-family: 'Hubbali', cursive;
   display: none;
   animation: win 1s;
@@ -82,6 +84,7 @@ h2 {
   background: #252525;
   padding:.5em 0;
   font-family: 'Hubbali', cursive;
+  font-size: clamp(.8rem, 2vw, 1.5rem);
 }
 
 section.stats {
@@ -95,6 +98,7 @@ h3 {
   font-family: 'Hubbali', cursive;
   text-transform: uppercase;
   color:aquamarine;
+  font-size: clamp(.75rem, 1.8vw, 1.15rem);
 }
 
 h3 span {
@@ -107,6 +111,9 @@ h3 span {
 
 section.cards {
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 img {
@@ -128,7 +135,7 @@ button {
   padding:.5em;
   border-radius: .3em;
   outline: 0;
-  font-size: 1.2rem;
+  font-size: clamp(.9rem, 3vw, 1.2rem);
   text-shadow: 0 0 2px black;
   color: white;
   margin-right: 1em;
@@ -158,4 +165,31 @@ button.restart {
 }
 button.restart:hover {
   background: rgb(252, 24, 24);
+}
+
+/* ------ */
+
+@media (max-width: 768px){
+  .line { display: none; }
+
+  h4 {
+    width: 100%;
+    text-align: center;
+  }
+
+  main {
+    flex-direction: column;
+    height: auto;
+    padding:0;
+  }
+
+  main section.main-cont {
+    width: 95%;
+    min-height: 35vh;
+  }
+
+  img {
+    width: 10%;
+    min-width: 40px;
+  }
 }
