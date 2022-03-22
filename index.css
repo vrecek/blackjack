@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-weight: 300;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  background: url('./images/background.png');
+  background-size: cover;
+  color: white;
+}
+
+/* ----------------------------------------------------------------------- */
+
+h1 {
+  text-align: center;
+  padding:.5em 0;
+  font-weight: 700;
+}
+
+h1 span {
+  font-weight: 400;
+  color:orange;
+  text-shadow: 0 0 2px greenyellow, 0 0 4px greenyellow;
+}
+
+h4 {
+  position: absolute;
+  left:50%;
+  top:-50%;
+  transform: translateX(-50%);
+  background: #202020;
+  padding:.5em;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-family: 'Hubbali', cursive;
+  display: none;
+  animation: win 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes win {
+  0% { top: -50% }
+  100% { top: 0; }
+}
+
+/* ----------------------------------------------------------------------- */
+
+main {
+  border: 3px solid saddlebrown;
+  background: #353535de;
+  border-radius: .2em;
+  width: 95%;
+  margin:0 auto;
+  height: 500px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding:1em 0;
+}
+
+div.line {
+  width: 2px;
+  height: 100%;
+  background: black;
+}
+
+main section.main-cont {
+  width: 46%;
+  height: 100%;
+}
+
+/* ----------------------------------------------------------------------- */
+
+h2 {
+  text-align: center;
+  background: #252525;
+  padding:.5em 0;
+  font-family: 'Hubbali', cursive;
+}
+
+section.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: .8em;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Hubbali', cursive;
+  text-transform: uppercase;
+  color:aquamarine;
+}
+
+h3 span {
+  display: block;
+  text-transform: lowercase;
+  color:white;
+}
+
+/* ----------------------------------------------------------------------- */
+
+section.cards {
+  overflow: hidden;
+}
+
+img {
+  width: 17%;
+  margin:.5em;
+}
+
+/* ----------------------------------------------------------------------- */
+
+section.buttons {
+  width: 95%;
+  margin:1em auto 0 auto;
+}
+
+button {
+  cursor: pointer;
+  transition: .3s;
+  font-weight: 100;
+  padding:.5em;
+  border-radius: .3em;
+  outline: 0;
+  font-size: 1.2rem;
+  text-shadow: 0 0 2px black;
+  color: white;
+  margin-right: 1em;
+}
+
+button.draw-card {
+  border: 2px solid royalblue;
+  background: royalblue;
+}
+button.draw-card:hover {
+  background: cornflowerblue;
+}
+
+
+button.hold-card {
+  border: 2px solid orangered;
+  background: orangered;
+}
+button.hold-card:hover {
+  background: orange;
+}
+
+button.restart {
+  border: 2px solid rgb(212, 12, 12);
+  background: rgb(212, 12, 12);
+  display: none;
+}
+button.restart:hover {
+  background: rgb(252, 24, 24);
+}
